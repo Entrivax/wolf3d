@@ -6,7 +6,7 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/04/25 15:47:10 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/04/26 14:34:44 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,14 +31,6 @@ INCLUDEFOLDER=./include
 OBJ=$(addprefix $(OBJFOLDER),$(subst .c,.o,$(SRCFILES)))
 SRC=$(addprefix $(SRCFOLDER),$(SRCFILES))
 
-#ifeq ($(OUT),MAC)
-#  LIBXFOLDER=./minilibx_macos
-#  LIBX=$(LIBXFOLDER)/libmlx.a
-#else
-#  LIBXFOLDER=./minilibx
-#  LIBX=$(LIBXFOLDER)/libmlx_Linux.a
-#endif
-
 LIBFTFOLDER=./libft
 LIBFT=$(LIBFTFOLDER)/libft.a
 
@@ -57,13 +49,7 @@ PATHSOSDLGCC=-Wl,-R`pwd`/$(LIBSDLFOLDER)/build/.libs
 endif
 
 EFLAGS=-Wall -Werror -Wextra -g
-#IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBXFOLDER)
 IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
-#ifeq ($(OUT),MAC)
-#  LFLAGS=-L$(LIBXFOLDER) -lmlx -framework OpenGL -framework AppKit -L$(LIBFTFOLDER) -lft
-#else
-#  LFLAGS=-L$(LIBXFOLDER) -lmlx_Linux -lXext -lX11 -L$(LIBFTFOLDER) -lft -lm
-#endif
 LFLAGS=-L$(LIBFTFOLDER) -lft -lm $(PATHSOSDLGCC) -L`pwd`/$(LIBSDLFOLDER)/build/.libs -lSDL2  
 
 .PHONY: all cleanwolf clean fclean re norme rewolf
@@ -75,7 +61,7 @@ $(NAME): $(LIBFT) $(OBJ) $(DYNSDL)
 all: $(NAME)
 
 $(OBJFOLDER)%.o: $(SRCFOLDER)%.c
-	if ! [ -d "$(OBJFOLDER)" ]; then mkdir $(OBJFOLDER); fi
+	@if ! [ -d "$(OBJFOLDER)" ]; then mkdir $(OBJFOLDER); fi
 	gcc -c $< $(EFLAGS) $(IFLAGS) -o $@
 
 $(LIBSDL): $(LIBSDLMAKEFILE)
@@ -87,9 +73,6 @@ $(DYNSDL): $(LIBSDL)
 $(LIBSDLMAKEFILE):
 	echo $(LIBSDLMAKEFILE)
 	cd $(LIBSDLFOLDER) && ./configure
-
-#$(LIBX):
-#	make -C $(LIBXFOLDER) all
 
 $(LIBFT):
 	make -C $(LIBFTFOLDER) all
