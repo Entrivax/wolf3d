@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 14:43:00 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/25 16:15:30 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/04/27 12:01:44 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	render_screen(t_env *env)
 		env->cf = 0x2D2D2D;
 		render_column(x, env);
 	}
+	render_minimap(env);
 }
 
 void	framerate(t_env *env)

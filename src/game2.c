@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 13:40:41 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/21 14:53:23 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/04/27 12:47:39 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,27 @@ void	set_up_v(t_env *env, float angle, t_vector2 *v)
 			(v[1].x + 1 - env->player.pos.x) * v[2].x, v->y < 0 ?
 			(env->player.pos.y - v[1].y) * v[2].y :
 			(v[1].y + 1 - env->player.pos.y) * v[2].y);
+}
+
+void	render_minimap(t_env *env)
+{
+	int		x;
+	int		y;
+
+	if (env->width < 20 || env->height < 20)
+		return ;
+	x = -10;
+	while (++x < 10)
+	{
+		y = -10;
+		while (++y < 10)
+		{
+			if (x + (int)env->player.pos.x >= 0 && x + (int)env->player.pos.x < env->map->width
+				&& y + (int)env->player.pos.y >= 0 && y + (int)env->player.pos.y < env->map->height)
+			{
+				pixel_put_img(env->img, x + env->width - 10, y + 10,
+					env->map->map[x + (int)env->player.pos.x][y + (int)env->player.pos.y].id != 0 ? 0xFFFFFF : 0);
+			}
+		}
+	}
 }
