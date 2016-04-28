@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 12:54:05 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/25 12:12:19 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/04/28 12:12:22 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	test_move(t_env *env)
 	float	dy;
 	float	speed_mult;
 
-	speed_mult = env->keys[SDL_SCANCODE_LSHIFT] ? 1.8 : 1;
+	speed_mult = env->keys[SDL_SCANCODE_LSHIFT] ? 2 : 1;
 	if (env->keys[SDL_SCANCODE_UP])
 	{
 		dx = env->player.dir.x * env->player.speed * speed_mult;
