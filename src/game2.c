@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 13:40:41 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/27 12:47:39 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/02 12:19:07 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,14 @@ void	render_minimap(t_env *env)
 		y = -10;
 		while (++y < 10)
 		{
-			if (x + (int)env->player.pos.x >= 0 && x + (int)env->player.pos.x < env->map->width
-				&& y + (int)env->player.pos.y >= 0 && y + (int)env->player.pos.y < env->map->height)
+			if (x + (int)env->player.pos.x >= 0
+				&& x + (int)env->player.pos.x < env->map->width
+				&& y + (int)env->player.pos.y >= 0
+				&& y + (int)env->player.pos.y < env->map->height)
 			{
-				pixel_put_img(env->img, x + env->width - 10, y + 10,
-					env->map->map[x + (int)env->player.pos.x][y + (int)env->player.pos.y].id != 0 ? 0xFFFFFF : 0);
+				pixel_put_img(env->img, x + env->width - 15, y + 15,
+					env->map->map[x + (int)env->player.pos.x][y +
+					(int)env->player.pos.y].id != 0 ? 0xFFFFFF : 0);
 			}
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:59:25 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/25 12:40:05 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/02 12:15:44 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,5 @@ int		parse_map(char *map_file, t_env *env)
 		line_n++;
 	}
 	close(fd);
-	return (((line_n - 1) == env->map->height) ? 0 : -1);
+	return ((env->map != NULL && (line_n - 1) == env->map->height) ? 0 : -1);
 }
