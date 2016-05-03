@@ -6,12 +6,14 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/05/03 13:34:24 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/05/03 14:57:01 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #OUT=LINUX
 OUT=MAC
+COMPILE_SDL=NO
+
 NAME=wolf3d
 SRCFOLDER=src/
 SRCFILES=program.c \
@@ -40,24 +42,41 @@ LIBSDL=$(LIBSDLFOLDER)/build/libSDL2main.a
 LIBSDLMAKEFILE=$(LIBSDLFOLDER)/Makefile
 
 ifeq ($(OUT),MAC)
+
+ifeq ($(COMPILE_SDL),NO)
+IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I./SDL2.framework/Headers
+LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L./SDL2.framework/Versions/Current -F. -framework SDL2 -framework SDL2 -framework Cocoa
+EDITLIB=install_name_tool -change @executable_path/../Frameworks/SDL2.framework/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME)
+else
+IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
+LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L`pwd`/$(LIBSDLFOLDER)/build/.libs -lSDL2
+EDITLIB=install_name_tool -change /usr/local/lib/$(DYNSDL) @executable_path/$(DYNSDL) $(NAME)
+endif
 DYNSDL=libSDL2-2.0.0.dylib
 CPLIB=cp $(LIBSDLFOLDER)/build/.libs/$(DYNSDL) .
-EDITLIB=install_name_tool -change /usr/local/lib/$(DYNSDL) @executable_path/$(DYNSDL) $(NAME)
+
 else
 DYNSDL=libSDL2-2.0.so.0
 CPLIB=cp $(LIBSDLFOLDER)/build/.libs/$(DYNSDL) .
-PATHSOSDLGCC=-Wl,-R`pwd`/$(LIBSDLFOLDER)/build/.libs
+PATHSOSDL=-Wl,-R`pwd`/$(LIBSDLFOLDER)/build/.libs
+IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
+LFLAGS=-L$(LIBFTFOLDER) -lft -lm $(PATHSOSDL) -L`pwd`/$(LIBSDLFOLDER)/build/.libs -lSDL2  
+
 endif
 
 EFLAGS=-Wall -Werror -Wextra -g
-IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
-LFLAGS=-L$(LIBFTFOLDER) -lft -lm $(PATHSOSDLGCC) -L`pwd`/$(LIBSDLFOLDER)/build/.libs -lSDL2  
 
 .PHONY: all cleanwolf clean fclean re norme rewolf
 
+ifeq ($(COMPILE_SDL),NO)
+$(NAME): $(LIBFT) $(OBJ)
+	gcc -o $(NAME) $(OBJ) $(LFLAGS)
+	$(EDITLIB)
+else
 $(NAME): $(LIBFT) $(OBJ) $(DYNSDL)
 	gcc -o $(NAME) $(OBJ) $(LFLAGS)
 	$(EDITLIB)
+endif
 
 all: $(NAME)
 
@@ -82,6 +101,16 @@ cleanwolf:
 	rm -rf $(OBJFOLDER)
 	rm -f $(NAME)
 
+ifeq ($(COMPILE_SDL),NO)
+
+clean:
+	make -C $(LIBFTFOLDER) clean
+
+fclean: cleanwolf clean
+	make -C $(LIBFTFOLDER) fclean
+
+else
+
 clean:
 	make -C $(LIBFTFOLDER) clean
 	make -C $(LIBSDLFOLDER) clean
@@ -90,6 +119,8 @@ fclean: cleanwolf clean
 	rm -f $(DYNSDL)
 	make -C $(LIBFTFOLDER) fclean
 	make -C $(LIBSDLFOLDER) distclean
+
+endif
 
 re: fclean all
 
