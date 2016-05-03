@@ -15,8 +15,24 @@
 
 void	pixel_put_img(SDL_Surface *img, int x, int y, unsigned int color)
 {
-	*((unsigned int *)(img->pixels + y * img->pitch + x *
-		img->format->BytesPerPixel)) = color;
+	if (x >= 0 && x < img->w && y >= 0 && y < img->h)
+		*((unsigned int *)(img->pixels + y * img->pitch + x *
+			img->format->BytesPerPixel)) = color;
+}
+
+void	render_rect(SDL_Surface *img, t_vector2 *p1, t_vector2 *p2,
+					unsigned int color)
+{
+	int				x;
+	int				y;
+
+	x = -1;
+	while (++x < p2->x)
+	{
+		y = -1;
+		while (++y < p2->y)
+			pixel_put_img(img, (int)p1->x + x, (int)p1->y + y, color);
+	}
 }
 
 void	render_digit(SDL_Surface *numbersmap, SDL_Surface *img, int pos, int n)

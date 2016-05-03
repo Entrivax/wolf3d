@@ -76,11 +76,22 @@ void	set_up_v(t_env *env, float angle, t_vector2 *v)
 			(v[1].y + 1 - env->player.pos.y) * v[2].y);
 }
 
+char	is_inside_map(int x, int y, t_map *map)
+{
+	return (x >= 0
+		&& x < map->width
+		&& y >= 0
+		&& y < map->height);
+}
+
 void	render_minimap(t_env *env)
 {
-	int		x;
-	int		y;
+	int			x;
+	int			y;
+	t_vector2	p1;
+	t_vector2	p2;
 
+	set_vector2(&p2, 3, 3);
 	if (env->width < 20 || env->height < 20)
 		return ;
 	x = -10;
@@ -89,15 +100,15 @@ void	render_minimap(t_env *env)
 		y = -10;
 		while (++y < 10)
 		{
-			if (x + (int)env->player.pos.x >= 0
-				&& x + (int)env->player.pos.x < env->map->width
-				&& y + (int)env->player.pos.y >= 0
-				&& y + (int)env->player.pos.y < env->map->height)
-			{
-				pixel_put_img(env->img, x + env->width - 15, y + 15,
-					env->map->map[x + (int)env->player.pos.x][y +
+			set_vector2(&p1, env->width - ((10 - x) * p2.x) - 5,
+				((y + 10) * p2.y) + 5);
+			if (is_inside_map(x + (int)env->player.pos.x,
+				y + (int)env->player.pos.y, env->map))
+				render_rect(env->img, &p1, &p2, env->map->map[x +
+					(int)env->player.pos.x][y +
 					(int)env->player.pos.y].id != 0 ? 0xFFFFFF : 0);
-			}
 		}
 	}
+	set_vector2(&p1, env->width - 35, 35);
+	render_rect(env->img, &p1, &p2, 0xFF0000);
 }

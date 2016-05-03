@@ -17,8 +17,6 @@
 # include "map.h"
 # include "SDL.h"
 
-void		free_split(char **split);
-int			split_length(char **split);
 int			parse_map(char *map_file, t_env *env);
 SDL_Surface	*load_texture(char *filename);
 int			parse_tiles(t_env *env, char *filename, t_map *map);

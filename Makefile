@@ -6,7 +6,7 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/04/26 14:34:44 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/05/03 13:34:24 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCFILES=program.c \
 		 parse.c \
 		 parse_tex.c \
 		 parse_tiles.c \
+		 str_helpers.c \
 		 vector2.c
 OBJFOLDER=obj/
 INCLUDEFOLDER=./include
@@ -78,10 +79,10 @@ $(LIBFT):
 	make -C $(LIBFTFOLDER) all
 
 cleanwolf:
+	rm -rf $(OBJFOLDER)
 	rm -f $(NAME)
 
 clean:
-	rm -rf $(OBJFOLDER)
 	make -C $(LIBFTFOLDER) clean
 	make -C $(LIBSDLFOLDER) clean
 

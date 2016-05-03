@@ -17,8 +17,12 @@
 # include "SDL.h"
 
 void	pixel_put_img(SDL_Surface *img, int x, int y, unsigned int color);
+void	render_rect(SDL_Surface *img, t_vector2 *p1, t_vector2 *p2,
+						unsigned int color);
 void	render_number(SDL_Surface *numbersmap, SDL_Surface *img, int pos,
 						int n);
 void	render_digit(SDL_Surface *numbersmap, SDL_Surface *img, int pos, int n);
+void	free_split(char **split);
+int		split_length(char **split);
 
 #endif

@@ -18,30 +18,21 @@
 #include "libft.h"
 #include "map.h"
 #include "parse.h"
+#include "helpers.h"
 
-void	free_split(char **split)
+void	check_borders(int line_n, int i, t_env *env)
 {
-	int		i;
+	int id;
 
-	if (split != NULL)
+	id = env->map->map[i][line_n - 1].id;
+	if ((line_n == 1 || line_n == env->map->height || i == 0
+		|| i == env->map->width - 1) && (id == 0 || id == -1))
 	{
-		i = -1;
-		while (split[++i])
-			free(split[i]);
-		free(split);
+		ft_putstr("Line ");
+		ft_putnbr(line_n + 1);
+		ft_putendl(": warning, border is not a wall, replacing.");
+		env->map->map[i][line_n - 1].id = 1;
 	}
-}
-
-int		split_length(char **split)
-{
-	int		i;
-
-	if (split == NULL)
-		return (-1);
-	i = -1;
-	while (split[++i])
-		;
-	return (i);
 }
 
 int		parse_map_line2(int line_n, t_env *env, char **str)
@@ -62,6 +53,7 @@ int		parse_map_line2(int line_n, t_env *env, char **str)
 			return (-1);
 		}
 		env->map->map[i][line_n - 1].id = ft_atoi(str[i]);
+		check_borders(line_n, i, env);
 		if (env->map->map[i][line_n - 1].id == -1)
 		{
 			set_vector2(&env->player.pos, i + 0.5, line_n - 0.5);
