@@ -6,7 +6,7 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/05/03 14:57:01 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/05/09 14:51:20 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ NAME=wolf3d
 SRCFOLDER=src/
 SRCFILES=program.c \
 		 binary_reader.c \
+		 init.c \
 		 game.c \
 		 game2.c \
 		 graphic_helper.c \

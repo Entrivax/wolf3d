@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 14:45:33 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/25 15:15:58 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 14:58:15 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,17 @@ typedef struct		s_env
 	SDL_Window		*win;
 	t_player		player;
 	char			running;
-	char			keys[283];
+	char			keys[285];
+	char			*mf;
+	char			*tf;
 	unsigned int	cf;
 	unsigned long	last_millis;
 	float			delta_t;
 }					t_env;
+
+int					print_usage(char **argv);
+void				destroy_env(t_env **env);
+int					get_files(t_env *env, int argc, char **av);
+void				print_infos(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:55:38 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/05/09 13:33:17 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 14:57:52 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ int		main(int argc, char **av)
 {
 	t_env	*env;
 
-	if (argc != 3)
-		return (print_usage(av));
 	if ((env = init_env(800, 800)) == NULL)
 		return (ft_return_int_print("error during env init.\nexiting...\n", 1));
+	if (get_files(env, argc, av) == 0)
+		return (0);
 	if (init_sdl(env) == -1)
 	{
 		destroy_env(&env);
@@ -101,13 +101,13 @@ int		main(int argc, char **av)
 		ft_putendl(SDL_GetError());
 		return (ft_return_int_print("exiting...\n", 1));
 	}
-	if (parse_map(av[1], env) == -1 || parse_tiles(env, av[2], env->map) == -1)
+	if (parse_map(env->mf, env) == -1 ||
+		parse_tiles(env, env->tf, env->map) == -1)
 	{
 		destroy_env(&env);
 		return (ft_return_int_print("error during parsing.\nexiting...\n", 1));
 	}
-	ft_putendl("\n\nWolf3d use ripped textures by ULTIMECIA.");
-	ft_putendl("\nSome textures may have been edited or replaced.\n");
+	print_infos();
 	game_start(env);
 	SDL_DestroyWindow(env->win);
 	destroy_env(&env);
