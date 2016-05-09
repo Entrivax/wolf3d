@@ -6,7 +6,7 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/05/09 14:51:20 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/05/09 15:29:30 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ ifeq ($(OUT),MAC)
 
 ifeq ($(COMPILE_SDL),NO)
 IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I./SDL2.framework/Headers
-LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L./SDL2.framework/Versions/Current -F. -framework SDL2 -framework SDL2 -framework Cocoa
+LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L./SDL2.framework/Versions/Current -F. -framework SDL2 -framework Cocoa
 EDITLIB=install_name_tool -change @executable_path/../Frameworks/SDL2.framework/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME)
 else
 IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
