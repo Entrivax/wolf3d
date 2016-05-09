@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:55:38 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/05/09 14:57:52 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 15:59:27 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ int		init_sdl(t_env *env)
 		== NULL || (env->texturesmap = load_texture("res/texturemap")) == NULL
 		|| (env->numbersmap = load_texture("res/numbers")) == NULL)
 	{
-		if (env->img != NULL)
-			SDL_FreeSurface(env->img);
-		if (env->texturesmap != NULL)
-			SDL_FreeSurface(env->img);
-		if (env->win != NULL)
-			SDL_DestroyWindow(env->win);
+		if (env->img != NULL && env->texturesmap == NULL)
+			ft_putendl("Error during texture map loading.");
+		else if (env->numbersmap == NULL)
+			ft_putendl("Error during numbers map loading.");
+		else
+		{
+			ft_putstr("error during SDL init : ");
+			ft_putendl(SDL_GetError());
+		}
+		destroy_env(&env);
 		SDL_Quit();
 		return (-1);
 	}
@@ -79,7 +83,7 @@ void	destroy_env(t_env **env)
 	if ((*env)->map != NULL)
 		destroy_map((*env)->map);
 	(*env)->map = NULL;
-	if ((*env)->texturesmap)
+	if ((*env)->texturesmap != NULL)
 		SDL_FreeSurface((*env)->texturesmap);
 	(*env)->texturesmap = NULL;
 	free(*env);
@@ -95,12 +99,7 @@ int		main(int argc, char **av)
 	if (get_files(env, argc, av) == 0)
 		return (0);
 	if (init_sdl(env) == -1)
-	{
-		destroy_env(&env);
-		ft_putstr("error during SDL init : ");
-		ft_putendl(SDL_GetError());
 		return (ft_return_int_print("exiting...\n", 1));
-	}
 	if (parse_map(env->mf, env) == -1 ||
 		parse_tiles(env, env->tf, env->map) == -1)
 	{
