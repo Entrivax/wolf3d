@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:55:38 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/25 15:36:16 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 12:10:20 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_env	*init_env(int width, int height)
 
 	if ((env = (t_env *)ft_memalloc(sizeof(t_env))) == NULL)
 		return (NULL);
-	set_vector2(&env->player.pos, 3, 4);
+	set_vector2(&env->player.pos, -1, -1);
 	env->player.speed = 0.1;
 	set_vector2(&env->player.dir, 0, -1);
 	env->width = width;

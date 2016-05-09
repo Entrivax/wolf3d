@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:59:25 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/05/02 12:15:44 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 12:16:32 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,18 @@ int		parse_map_line(int line_n, char *line, t_env *env)
 	return (0);
 }
 
+int		final_check(t_env *env)
+{
+	if (env->player.pos.x < 0 || env->player.pos.y < 0 ||
+		env->player.pos.x >= env->map->width ||
+		env->player.pos.y >= env->map->height)
+	{
+		ft_putendl("Error: no spawn point found!");
+		return (-1);
+	}
+	return (0);
+}
+
 int		parse_map(char *map_file, t_env *env)
 {
 	int		fd;
@@ -115,5 +127,6 @@ int		parse_map(char *map_file, t_env *env)
 		line_n++;
 	}
 	close(fd);
-	return ((env->map != NULL && (line_n - 1) == env->map->height) ? 0 : -1);
+	return ((env->map != NULL && final_check(env) == 0
+		&& (line_n - 1) == env->map->height) ? 0 : -1);
 }
