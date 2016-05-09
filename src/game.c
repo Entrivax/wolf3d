@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/11 14:43:00 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/27 12:01:44 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 13:33:41 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	render_column(int col, t_env *env)
 	float			angle;
 	float			cdist;
 
-	angle = ((col / (float)env->width) * 60. - 30.) * M_PI / 180.;
+	angle = ((col / (float)env->width) * 40. - 20.) * M_PI / 180.;
 	set_up_v(env, angle, v);
 	in = get_dist(env, v);
 	set_vector2(&in.pos, SET_INPOS);

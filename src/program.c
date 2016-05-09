@@ -6,7 +6,7 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:55:38 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/05/09 12:10:20 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 13:33:17 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_env	*init_env(int width, int height)
 	set_vector2(&env->player.dir, 0, -1);
 	env->width = width;
 	env->height = height;
-	env->player.cam_dist = (env->width / 2) * tan(30 * M_PI / 180.);
+	env->player.cam_dist = (env->width / 2) * tan(40 * M_PI / 180.);
 	env->last_millis = 0;
 	return (env);
 }
