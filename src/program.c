@@ -6,11 +6,12 @@
 /*   By: lpilotto <lpilotto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/10 19:55:38 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/05/09 15:59:27 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/09 19:33:01 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <math.h>
 
 #include "libft.h"
 #include "env.h"
