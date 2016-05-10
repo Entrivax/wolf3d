@@ -6,7 +6,7 @@
 #    By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/12 14:29:20 by lpilotto          #+#    #+#              #
-#    Updated: 2016/05/10 11:55:08 by lpilotto         ###   ########.fr        #
+#    Updated: 2016/05/10 12:20:41 by lpilotto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ ifeq ($(OUT),MAC)
 ifeq ($(COMPILE_SDL),NO)
 IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I./SDL2.framework/Headers
 LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L./SDL2.framework/Versions/Current -F. -framework SDL2 -framework Cocoa
-EDITLIB=install_name_tool -change @executable_path/../Frameworks/SDL2.framework/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME) & install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME)
+EDITLIB=install_name_tool -change @executable_path/../Frameworks/SDL2.framework/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME) && install_name_tool -change @rpath/SDL2.framework/Versions/A/SDL2 @executable_path/SDL2.framework/SDL2 $(NAME)
 else
 IFLAGS=-I$(LIBFTFOLDER) -I$(INCLUDEFOLDER) -I$(LIBSDLFOLDER)/include
 LFLAGS=-L$(LIBFTFOLDER) -lft -lm -L`pwd`/$(LIBSDLFOLDER)/build/.libs -lSDL2
@@ -65,7 +65,7 @@ LFLAGS=-L$(LIBFTFOLDER) -lft -lm $(PATHSOSDL) -L`pwd`/$(LIBSDLFOLDER)/build/.lib
 
 endif
 
-EFLAGS=-Wall -Werror -Wextra -g
+EFLAGS=-Wall -Werror -Wextra
 
 .PHONY: all cleanwolf clean fclean re norme rewolf
 

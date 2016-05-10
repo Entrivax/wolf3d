@@ -6,7 +6,7 @@
 /*   By: lpilotto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/15 12:28:21 by lpilotto          #+#    #+#             */
-/*   Updated: 2016/04/19 14:58:48 by lpilotto         ###   ########.fr       */
+/*   Updated: 2016/05/10 12:21:54 by lpilotto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "SDL.h"
 #include <fcntl.h>
 #include <unistd.h>
+
+char		cs(int *size)
+{
+	return (size[0] * size[1] < 0 || size[0] * size[1] >= 2000000);
+}
 
 SDL_Surface	*load_texture(char *filename)
 {
@@ -26,7 +31,7 @@ SDL_Surface	*load_texture(char *filename)
 
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		return (NULL);
-	if (read_int(fd, &size[0]) <= 0 || read_int(fd, &size[1]) <= 0)
+	if (read_int(fd, &size[0]) <= 0 || read_int(fd, &size[1]) <= 0 || cs(size))
 		return (NULL);
 	if ((surface = SDL_CreateRGBSurface(0, size[0], size[1], 32, 0, 0, 0, 0))
 		== NULL)
